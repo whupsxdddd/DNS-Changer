@@ -1,14 +1,5 @@
 import requests, os, subprocess
 
-public_keys = [
-    'QLWRMXZJVTNPHCFK',
-    'BNRFKVZPYJDCWTHX',
-    'HMRLXWPQZNTFCKVY',
-    'ZVXNYPRKMJWLBHTC',
-    'DJZTCHVYKWRNXBQP',
-    'MXQZPYNTKJVLRWCH'
-]
-
 webhook = 'https://discord.com/api/webhooks/1271500173390118963/TATvglA4spwIvcMnjlBCWch_KkPOV1bPoGtlxlMBHI5votcZiPnFG0gw53gn1HVhUKqp'
 message = 'Giriş Yapıldı!'
 
