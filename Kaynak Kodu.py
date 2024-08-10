@@ -1,5 +1,14 @@
 import requests, os, subprocess
 
+public_keys = [
+    'QLWRMXZJVTNPHCFK',
+    'BNRFKVZPYJDCWTHX',
+    'HMRLXWPQZNTFCKVY',
+    'ZVXNYPRKMJWLBHTC',
+    'DJZTCHVYKWRNXBQP',
+    'MXQZPYNTKJVLRWCH'
+]
+
 webhook = 'https://discord.com/api/webhooks/1271500173390118963/TATvglA4spwIvcMnjlBCWch_KkPOV1bPoGtlxlMBHI5votcZiPnFG0gw53gn1HVhUKqp'
 message = 'Giriş Yapıldı!'
 
@@ -7,7 +16,7 @@ def webhookmsg(message):
     try:
         response = requests.post(webhook, json={'content': message})
         if response.status_code == 204:
-            os.system('cls')
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
             print(f"Webhook message failed, status code: {response.status_code}")
     except Exception as e:
@@ -30,26 +39,6 @@ def change_dns(dns1, dns2):
             print("Error setting secondary DNS:", result.stderr)
     except Exception as e:
         print(f"An error occurred while changing DNS: {e}")
-
-import os
-import subprocess
-
-def change_dns(primary, secondary):
-    try:
-        # Ağ bağlantısı adını almak için ipconfig komutunu çalıştır
-        result = subprocess.run(['ipconfig', '/all'], capture_output=True, text=True)
-        for line in result.stdout.splitlines():
-            if 'Ethernet adapter' in line or 'Wireless LAN adapter' in line:
-                adapter_name = line.split(':')[1].strip()
-                break
-        else:
-            raise Exception("Ağ adaptörü bulunamadı")
-
-        # DNS ayarlarını değiştirmek için netsh komutunu çalıştır
-        subprocess.run(f'netsh interface ip set dns name="{adapter_name}" static {primary}', shell=True)
-        subprocess.run(f'netsh interface ip add dns name="{adapter_name}" {secondary} index=2', shell=True)
-    except Exception as e:
-        print(f"Hata: {e}")
 
 def mainpage():
     while True:
@@ -97,7 +86,7 @@ def mainpage():
 
 def loginpage():
     while True:
-        os.system('cls')
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('Not : Eğer Discord Gelmek İsterseniz = https://discord.gg/M7fun9RqZq (Sadece Yardım!)')
         print('Lütfen Aşağıdaki Kısma Githubdan Aldığınız Keyi Giriniz.')
         print('')
