@@ -1,17 +1,4 @@
-import requests, os, subprocess
-
-webhook = 'https://discord.com/api/webhooks/1271500173390118963/TATvglA4spwIvcMnjlBCWch_KkPOV1bPoGtlxlMBHI5votcZiPnFG0gw53gn1HVhUKqp'
-message = 'Giriş Yapıldı!'
-
-def webhookmsg(message):
-    try:
-        response = requests.post(webhook, json={'content': message})
-        if response.status_code == 204:
-            os.system('cls' if os.name == 'nt' else 'clear')
-        else:
-            print(f"Webhook message failed, status code: {response.status_code}")
-    except Exception as e:
-        print(f"An error occurred while sending webhook message: {e}")
+import os, subprocess, time
 
 def change_dns(dns1, dns2):
     interface_name = "Wi-Fi"  # Wi-Fi adaptörüne odaklanıyoruz
@@ -31,9 +18,9 @@ def change_dns(dns1, dns2):
     except Exception as e:
         print(f"An error occurred while changing DNS: {e}")
 
-def mainpage():
+def dns_changer():
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system('cls')
         print('1. (1.1.1.1 - Cloudflare DNS) (1.0.0.1 - Cloudflare DNS)')
         print('2. (8.8.8.8 - Google DNS) (8.8.4.4 - Google DNS)')
         print('3. (76.76.2.0 - Quad9) (76.76.10.0 - Quad9)')
@@ -75,18 +62,47 @@ def mainpage():
         except ValueError:
             print('Lütfen geçerli bir numara giriniz!')
 
+def ipreset():
+    os.system('cls')
+    print('İşlem Birazdan Başlatılacaktır.Yapıldıktan Sonra Lütfen Bilgisayarı Yeniden Başlatın.')
+    time.sleep(2.5)
+    os.system('cls')
+    os.system('ipconfig /flushdns')
+
+    for say in range(1, 11):
+        if say == 10:
+            print('İşlem Bitti!')
+            time.sleep(4)
+            return
+
 def loginpage():
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print('Not : Eğer Discord Gelmek İsterseniz = https://discord.gg/M7fun9RqZq (Sadece Yardım!)')
-        print('Lütfen Aşağıdaki Kısma Githubdan Aldığınız Keyi Giriniz.')
-        print('')
-        keygir = input('>>>')
+        os.system('cls')
+        try:
+            os.system('cls')
+            print('Tüm Sistemler Key İle Çalışmaktadır.Discord = https://discord.gg/M7fun9RqZq')
+            print('')
+            print('1. DNS Changer')
+            print('2. Network Refresh')
+            print('')
 
-        if keygir in public_keys:
-            webhookmsg(message)
-            mainpage()
-        else:
-            print('Hata! Lütfen Düzgün Key Giriniz!')
+            x = int(input('Sayı Giriniz : '))
+            
+            if x == 1:
+                os.system('cls')
+                dnskeygir = input('Key Giriniz : ')
+
+                if dnskeygir == dns_key:
+                    dns_changer()
+            elif x == 2:
+                os.system('cls')
+                ipresetkeygir = input('Key Giriniz : ')
+
+                if ipresetkeygir == ipreset_key:
+                    ipreset()
+            else:
+                print('?')
+        except ValueError:
+            print('Hata!')
 
 loginpage()
